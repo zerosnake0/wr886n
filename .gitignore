@@ -1,0 +1,8 @@
+wr886n.bat
+
+.idea/
+*~
+\#*\#
+
+*.py[cod]
+__pycache__/
