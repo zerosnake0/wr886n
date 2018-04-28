@@ -2,5 +2,5 @@
 setlocal
 set TPLINK_HOST=
 set TPLINK_PASSWORD=
-set PYTHONPATH=%~dp0:%PYTHONPATH%
+set PYTHONPATH=%~dp0;%PYTHONPATH%
 python -m wr886n
