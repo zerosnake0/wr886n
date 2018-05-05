@@ -150,19 +150,17 @@ class TPLink(object):
         servers = self.get_virtual_server()
         self.show_servers(servers)
 
-        test_ip = '192.168.0.254'
-        print("Adding servers...")
-        for i in range(1, 10):
-            print("Adding", i)
-            self.add_or_modify_server(test_ip, i, i)
-
-        print("Refreshing servers...")
-        servers = self.get_virtual_server()
-
         print("Deleting servers...")
-        for s in sorted(servers[test_ip], key=lambda x: x.sid, reverse=True):
-            print('Deleting', s)
+        g = [s for l in servers.values() for s in l]
+        for s in sorted(g, key=lambda x: x.sid, reverse=True):
+            print("Deleting", s)
             self.delete_server(s.sid, s.page)
+
+        print("Adding servers...")
+        for s in sorted(g, key=lambda x: (x.ip_addr, x.start_port)):
+            print("Adding", s)
+            self.add_or_modify_server(s.ip_addr, s.start_port, s.end_port,
+                                      s.internal_port, s.protocol, s.status)
 
         print("Refreshing servers...")
         servers = self.get_virtual_server()
